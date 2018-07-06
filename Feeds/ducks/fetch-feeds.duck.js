@@ -6,7 +6,6 @@ import { usersUrls } from '../../../../config/server-urls.constants'
 import { testConstants } from '../../../../config/for-test.constants';
 import { fetchFeedsDetailRequest } from './fetch-feeds-detail.duck';
 import { hasTokenInResponse } from '../../../../utils/plugin-helpers.utils'
-import { feeds } from '../feeds.config';
 
 export const FETCH_FEEDS_REQUEST = 'FETCH_FEEDS_REQUEST';
 export const FETCH_FEEDS_SUCCESS = 'FETCH_FEEDS_SUCCESS';
