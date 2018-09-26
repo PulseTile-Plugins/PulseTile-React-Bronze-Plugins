@@ -1306,7 +1306,9 @@ exports[`Component <Proms /> should renders correctly with promsDetail and testi
           }
           currentPanel="promsCreate"
           expandedPanel="all"
+          headingName=""
           isCreatePanelVisible={true}
+          isCreationPermitted={true}
           isImport={false}
           name="promsCreate"
           onCancel={[Function]}
@@ -1490,7 +1492,9 @@ exports[`Component <Proms /> should renders correctly with promsDetail and testi
           }
           currentPanel="promsCreate"
           expandedPanel="all"
+          headingName=""
           isCreatePanelVisible={true}
+          isCreationPermitted={true}
           isImport={false}
           name="promsCreate"
           onCancel={[Function]}

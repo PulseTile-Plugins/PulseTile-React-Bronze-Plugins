@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 
-import asyncComponent from '../../../components/containers/AsyncComponent/AsyncComponent';
-import { clientUrls } from '../../../config/client-urls.constants';
+import asyncComponent from '../../../../components/containers/AsyncComponent/AsyncComponent';
+import { themeClientUrls } from '../../config/clientUrls';
 
 import { fetchPatientGenericPluginEpic } from './ducks/fetch-patient-generic-plugin.duck';
 import { fetchPatientGenericPluginUpdateEpic } from './ducks/fetch-patient-generic-plugin.duck';
@@ -27,9 +27,9 @@ const reducers = {
 const sidebarConfig = { key: 'genericPlugin', pathToTransition: '/genericPlugin', name: 'Generic Plugin', isVisible: false };
 
 const routers = [
-  { key: 'genericPlugin', component: GenericPlugin, path: `${clientUrls.PATIENTS}/:userId/${clientUrls.GENERIC_PLUGIN}` },
-  { key: 'genericPluginCreate', component: GenericPlugin, path: `${clientUrls.PATIENTS}/:userId/${clientUrls.GENERIC_PLUGIN}/create` },
-  { key: 'genericPluginDetail', component: GenericPlugin, path: `${clientUrls.PATIENTS}/:userId/${clientUrls.GENERIC_PLUGIN}/:sourceId` },
+  { key: 'genericPlugin', component: GenericPlugin, path: `${themeClientUrls.PATIENTS}/:userId/${themeClientUrls.GENERIC_PLUGIN}` },
+  { key: 'genericPluginCreate', component: GenericPlugin, path: `${themeClientUrls.PATIENTS}/:userId/${themeClientUrls.GENERIC_PLUGIN}/create` },
+  { key: 'genericPluginDetail', component: GenericPlugin, path: `${themeClientUrls.PATIENTS}/:userId/${themeClientUrls.GENERIC_PLUGIN}/:sourceId` },
 ];
 
 export default {

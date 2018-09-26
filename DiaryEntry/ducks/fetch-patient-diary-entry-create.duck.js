@@ -1,7 +1,7 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
+import { themeClientUrls } from '../../../config/clientUrls';
 import { fetchPatientDiaryEntryRequest } from './fetch-patient-diary-entry.duck'
 
 export const FETCH_PATIENT_DIARY_ENTRY_CREATE_REQUEST = 'FETCH_PATIENT_DIARY_ENTRY_CREATE_REQUEST';
@@ -15,7 +15,7 @@ export const fetchPatientDiaryEntryCreateFailure = createAction(FETCH_PATIENT_DI
 export const fetchPatientDiaryEntryCreateEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_DIARY_ENTRY_CREATE_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.post(`${usersUrls.PATIENTS_URL}/${payload.userId}/diary-entry`, payload, {
+      ajax.post(`/api/patients/${payload.userId}/${themeClientUrls.DIARY_ENTRY}`, payload, {
         Cookie: store.getState().credentials.cookie,
         'Content-Type': 'application/json',
       })

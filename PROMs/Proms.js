@@ -16,14 +16,14 @@ import { fetchPatientPromsRequest } from './ducks/fetch-patient-proms.duck';
 import { fetchPatientPromsCreateRequest } from './ducks/fetch-patient-proms-create.duck';
 import { fetchPatientPromsDetailRequest } from './ducks/fetch-patient-proms-detail.duck';
 import { fetchPatientPromsDetailEditRequest } from './ducks/fetch-patient-proms-detail-edit.duck';
-import { fetchPatientPromsOnMount, fetchPatientPromsDetailOnMount } from '../../../utils/HOCs/fetch-patients.utils';
+import { fetchPatientPromsOnMount, fetchPatientPromsDetailOnMount } from '../../config/synopsisRequests';
 import { patientPromsSelector, promsDetailFormStateSelector, promsCreateFormStateSelector, patientPromsDetailSelector } from './selectors';
-import { clientUrls } from '../../../config/client-urls.constants';
-import { checkIsValidateForm, operationsOnCollection } from '../../../utils/plugin-helpers.utils';
+import { themeClientUrls } from '../../config/clientUrls';
+import { checkIsValidateForm, operationsOnCollection } from '../../../../utils/plugin-helpers.utils';
 import PromsDetail from './PromsDetail/PromsDetail';
-import PluginCreate from '../../plugin-page-component/PluginCreate';
+import PluginCreate from '../../../plugin-page-component/PluginCreate';
 import PromsCreateForm from './PromsCreate/PromsCreateForm'
-import { getDDMMMYYYY } from '../../../utils/time-helpers.utils';
+import { getDDMMMYYYY } from '../../../../utils/time-helpers.utils';
 import { serviceProms } from './proms-helpers.utils';
 
 
@@ -83,13 +83,13 @@ export default class Proms extends PureComponent {
     const userId = this.context.router.route.match.params.userId;
 
     //TODO should be implemented common function, and the state stored in the store Redux
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}/${sourceId}` && sourceId !== undefined && !_.isEmpty(nextProps.promDetail)) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}/${sourceId}` && sourceId !== undefined && !_.isEmpty(nextProps.promDetail)) {
       this.setState({ isSecondPanel: true, isDetailPanelVisible: true, isBtnExpandVisible: true, isBtnCreateVisible: true, isCreatePanelVisible: false })
     }
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}/create`) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}/create`) {
       this.setState({ isSecondPanel: true, isBtnExpandVisible: true, isBtnCreateVisible: false, isCreatePanelVisible: true, openedPanel: PROMS_CREATE, isDetailPanelVisible: false })
     }
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}`) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}`) {
       this.setState({ isSecondPanel: false, isBtnExpandVisible: false, isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: PROM_PANEL, isDetailPanelVisible: false, expandedPanel: 'all' })
     }
 
@@ -125,7 +125,7 @@ export default class Proms extends PureComponent {
     const { actions, userId } = this.props;
     this.setState({ isSecondPanel: true, isDetailPanelVisible: true, isBtnExpandVisible: true, isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: PROM_PANEL, editedPanel: {}, expandedPanel: 'all', isLoading: true })
     actions.fetchPatientPromsDetailRequest({ userId, sourceId });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}/${sourceId}`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}/${sourceId}`);
   };
 
   handleSetOffset = offset => this.setState({ offset });
@@ -133,7 +133,7 @@ export default class Proms extends PureComponent {
   handleCreate = () => {
     const { userId } = this.props;
     this.setState({ isBtnCreateVisible: false, isCreatePanelVisible: true, openedPanel: PROMS_CREATE, isSecondPanel: true, isDetailPanelVisible: false, isSubmit: false, isLoading: true })
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}/create`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}/create`);
   };
 
   handleEdit = (name) => {
@@ -177,7 +177,7 @@ export default class Proms extends PureComponent {
   handleCreateCancel = () => {
     const { userId } = this.props;
     this.setState({ isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: PROM_PANEL, isSecondPanel: false, isBtnExpandVisible: false, expandedPanel: 'all', isSubmit: false, isLoading: true });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}`);
   };
 
   handleSaveSettingsCreateForm = (formValues) => {
@@ -185,7 +185,7 @@ export default class Proms extends PureComponent {
 
     if (checkIsValidateForm(promsCreateFormState)) {
       actions.fetchPatientPromsCreateRequest(this.formValuesToString(formValues, 'create'));
-      this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.PROMS}`);
+      this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.PROMS}`);
       this.hideCreateForm();
       this.setState({ isSubmit: false, isLoading: true });
     } else {

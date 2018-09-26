@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PTButton from '../../../ui-elements/PTButton/PTButton';
+import PTButton from '../../../../ui-elements/PTButton/PTButton';
 
 const VIEW_CONTENT = 'viewContent';
 

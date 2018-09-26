@@ -2,9 +2,9 @@ import _ from 'lodash/fp';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
+import { themeClientUrls } from '../../../config/clientUrls';
 import { fetchPatientGenericPluginDetailRequest } from './fetch-patient-generic-plugin-detail.duck';
-import { hasTokenInResponse } from '../../../../utils/plugin-helpers.utils';
+import { hasTokenInResponse } from '../../../../../utils/plugin-helpers.utils';
 
 export const FETCH_PATIENT_GENERIC_PLUGIN_REQUEST = 'FETCH_PATIENT_GENERIC_PLUGIN_REQUEST';
 export const FETCH_PATIENT_GENERIC_PLUGIN_SUCCESS = 'FETCH_PATIENT_GENERIC_PLUGIN_SUCCESS';
@@ -19,7 +19,7 @@ export const fetchPatientGenericPluginUpdateRequest = createAction(FETCH_PATIENT
 export const fetchPatientGenericPluginEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_GENERIC_PLUGIN_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/generic-plugin`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.GENERIC_PLUGIN}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .map((response) => {
@@ -35,7 +35,7 @@ export const fetchPatientGenericPluginEpic = (action$, store) =>
 export const fetchPatientGenericPluginUpdateEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_GENERIC_PLUGIN_UPDATE_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/generic-plugin`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.GENERIC_PLUGIN}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .flatMap((response) => {

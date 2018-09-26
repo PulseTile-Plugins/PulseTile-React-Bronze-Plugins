@@ -1,8 +1,8 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
-import { fetchPatientGenericPluginUpdateRequest } from './fetch-patient-generic-plugin.duck'
+import { themeClientUrls } from '../../../config/clientUrls';
+import { fetchPatientGenericPluginUpdateRequest } from './fetch-patient-generic-plugin.duck';
 
 export const FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_EDIT_REQUEST = 'FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_EDIT_REQUEST';
 export const FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_EDIT_SUCCESS = 'FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_EDIT_SUCCESS';
@@ -15,7 +15,7 @@ export const fetchPatientGenericPluginDetailEditFailure = createAction(FETCH_PAT
 export const fetchPatientGenericPluginDetailEditEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_EDIT_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.put(`${usersUrls.PATIENTS_URL}/${payload.userId}/generic-plugin/${payload.sourceId}`, payload, {
+      ajax.put(`/api/patients/${payload.userId}/${themeClientUrls.GENERIC_PLUGIN}/${payload.sourceId}`, payload, {
         Cookie: store.getState().credentials.cookie,
         'Content-Type': 'application/json',
       })

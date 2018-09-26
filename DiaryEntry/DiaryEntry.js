@@ -7,22 +7,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { lifecycle, compose } from 'recompose';
 
-import PluginListHeader from '../../plugin-page-component/PluginListHeader';
-import PluginCreate from '../../plugin-page-component/PluginCreate';
-import PluginMainPanel from '../../plugin-page-component/PluginMainPanel';
+import PluginListHeader from '../../../plugin-page-component/PluginListHeader';
+import PluginCreate from '../../../plugin-page-component/PluginCreate';
+import PluginMainPanel from '../../../plugin-page-component/PluginMainPanel';
 import DiaryEntryCreateForm from './DiaryEntryCreate/DiaryEntryCreateForm';
 import { columnsConfig, defaultColumnsSelected } from './table-columns.config'
 import { fetchPatientDiaryEntryRequest } from './ducks/fetch-patient-diary-entry.duck';
 import { fetchPatientDiaryEntryDetailRequest } from './ducks/fetch-patient-diary-entry-detail.duck';
 import { fetchPatientDiaryEntryDetailEditRequest } from './ducks/fetch-patient-diary-entry-detail-edit.duck';
 import { fetchPatientDiaryEntryCreateRequest } from './ducks/fetch-patient-diary-entry-create.duck';
-import { fetchPatientDiaryEntryOnMount, fetchPatientDiaryEntryDetailOnMount } from '../../../utils/HOCs/fetch-patients.utils';
+import { fetchPatientDiaryEntryOnMount, fetchPatientDiaryEntryDetailOnMount } from '../../config/synopsisRequests';
 import { patientDiaryEntrySelector, patientDiaryEntryDetailSelector, diaryEntryDetailFormSelector, diaryEntryCreateFormStateSelector } from './selectors';
-import { clientUrls } from '../../../config/client-urls.constants';
+import { themeClientUrls } from '../../config/clientUrls';
 import DiaryEntryDetail from './DiaryEntryDetail/DiaryEntryDetail';
 import { valuesNames } from './forms.config';
-import { getDDMMMYYYY } from '../../../utils/time-helpers.utils';
-import { checkIsValidateForm, operationsOnCollection } from '../../../utils/plugin-helpers.utils';
+import { getDDMMMYYYY } from '../../../../utils/time-helpers.utils';
+import { checkIsValidateForm, operationsOnCollection } from '../../../../utils/plugin-helpers.utils';
 
 const DIARY_ENTRY_MAIN = 'diaryEntriesMain';
 const DIARY_ENTRY_DETAIL = 'diaryEntriesDetail';
@@ -71,13 +71,13 @@ export default class DiaryEntry extends PureComponent {
     const userId = this.context.router.route.match.params.userId;
 
     //TODO should be implemented common function, and the state stored in the store Redux
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}/${sourceId}` && sourceId !== undefined) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}/${sourceId}` && sourceId !== undefined) {
       this.setState({ isSecondPanel: true, isDetailPanelVisible: true, isBtnExpandVisible: true, isBtnCreateVisible: true, isCreatePanelVisible: false })
     }
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}/create`) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}/create`) {
       this.setState({ isSecondPanel: true, isBtnExpandVisible: true, isBtnCreateVisible: false, isCreatePanelVisible: true, openedPanel: DIARY_ENTRY_CREATE, isDetailPanelVisible: false })
     }
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}`) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}`) {
       this.setState({ isSecondPanel: false, isBtnExpandVisible: false, isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: DIARY_ENTRY_PANEL, isDetailPanelVisible: false, expandedPanel: 'all' })
     }
 
@@ -109,7 +109,7 @@ export default class DiaryEntry extends PureComponent {
     const { actions, userId } = this.props;
     this.setState({ isSecondPanel: true, isDetailPanelVisible: true, isBtnExpandVisible: true, isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: DIARY_ENTRY_PANEL, editedPanel: {}, expandedPanel: 'all', isLoading: true });
     actions.fetchPatientDiaryEntryDetailRequest({ userId, sourceId });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}/${sourceId}`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}/${sourceId}`);
   };
 
   handleSetOffset = offset => this.setState({ offset });
@@ -117,7 +117,7 @@ export default class DiaryEntry extends PureComponent {
   handleCreate = () => {
     const { userId } = this.props;
     this.setState({ isBtnCreateVisible: false, isCreatePanelVisible: true, openedPanel: DIARY_ENTRY_CREATE, isSecondPanel: true, isDetailPanelVisible: false, isBtnExpandVisible: true, expandedPanel: 'all', isSubmit: false, isLoading: true });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}/create`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}/create`);
   };
 
   handleEdit = (name) => {
@@ -161,14 +161,14 @@ export default class DiaryEntry extends PureComponent {
   handleCreateCancel = () => {
     const { userId } = this.props;
     this.setState({ isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: DIARY_ENTRY_PANEL, isSecondPanel: false, isBtnExpandVisible: false, expandedPanel: 'all', isSubmit: false, isLoading: true });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}`);
   };
 
   handleSaveSettingsCreateForm = (formValues) => {
     const { actions, userId, diaryEntryCreateFormState } = this.props;
     if (checkIsValidateForm(diaryEntryCreateFormState)) {
       actions.fetchPatientDiaryEntryCreateRequest(this.formValuesToString(formValues, 'create'));
-      this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.DIARY_ENTRY}`);
+      this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.DIARY_ENTRY}`);
       this.hideCreateForm();
       this.setState({ isLoading: true });
     } else {

@@ -2,9 +2,9 @@ import _ from 'lodash/fp';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
+import { themeClientUrls } from '../../../config/clientUrls';
 import { fetchPatientDiaryEntryDetailRequest } from './fetch-patient-diary-entry-detail.duck';
-import { hasTokenInResponse } from '../../../../utils/plugin-helpers.utils';
+import { hasTokenInResponse } from '../../../../../utils/plugin-helpers.utils';
 
 export const FETCH_PATIENT_DIARY_ENTRY_REQUEST = 'FETCH_PATIENT_DIARY_ENTRY_REQUEST';
 export const FETCH_PATIENT_DIARY_ENTRY_SUCCESS = 'FETCH_PATIENT_DIARY_ENTRY_SUCCESS';
@@ -19,7 +19,7 @@ export const fetchPatientDiaryEntryUpdateRequest = createAction(FETCH_PATIENT_DI
 export const fetchPatientDiaryEntryEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_DIARY_ENTRY_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/diary-entry`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.DIARY_ENTRY}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .map((response) => {
@@ -35,7 +35,7 @@ export const fetchPatientDiaryEntryEpic = (action$, store) =>
 export const fetchPatientDiaryEntryUpdateEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_DIARY_ENTRY_UPDATE_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/diary-entry`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.DIARY_ENTRY}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .flatMap((response) => {

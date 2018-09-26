@@ -1,7 +1,7 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
+import { themeClientUrls } from '../../../config/clientUrls';
 import { fetchPatientGenericPluginRequest } from './fetch-patient-generic-plugin.duck'
 
 export const FETCH_PATIENT_GENERIC_PLUGIN_CREATE_REQUEST = 'FETCH_PATIENT_GENERIC_PLUGIN_CREATE_REQUEST';
@@ -15,7 +15,7 @@ export const fetchPatientGenericPluginCreateFailure = createAction(FETCH_PATIENT
 export const fetchPatientGenericPluginCreateEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_GENERIC_PLUGIN_CREATE_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.post(`${usersUrls.PATIENTS_URL}/${payload.userId}/generic-plugin`, payload, {
+      ajax.post(`/api/patients//${payload.userId}/${themeClientUrls.GENERIC_PLUGIN}`, payload, {
         Cookie: store.getState().credentials.cookie,
         'Content-Type': 'application/json',
       })

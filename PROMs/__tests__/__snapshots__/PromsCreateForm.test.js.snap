@@ -45,6 +45,26 @@ exports[`Component <PromsCreateForm /> should renders correctly when form is sub
                 "title": "Procedures",
                 "value": "procedures",
               },
+              Object {
+                "title": "Problems / Diagnosis",
+                "value": "diagnosis",
+              },
+              Object {
+                "title": "Medications",
+                "value": "medications",
+              },
+              Object {
+                "title": "Events",
+                "value": "events",
+              },
+              Object {
+                "title": "Vitals",
+                "value": "vitals",
+              },
+              Object {
+                "title": "Referrals",
+                "value": "referrals",
+              },
             ],
           }
         }
@@ -365,6 +385,26 @@ exports[`Component <PromsCreateForm /> should renders with props correctly 1`] =
               Object {
                 "title": "Procedures",
                 "value": "procedures",
+              },
+              Object {
+                "title": "Problems / Diagnosis",
+                "value": "diagnosis",
+              },
+              Object {
+                "title": "Medications",
+                "value": "medications",
+              },
+              Object {
+                "title": "Events",
+                "value": "events",
+              },
+              Object {
+                "title": "Vitals",
+                "value": "vitals",
+              },
+              Object {
+                "title": "Referrals",
+                "value": "referrals",
               },
             ],
           }

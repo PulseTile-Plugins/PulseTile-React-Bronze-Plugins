@@ -3,15 +3,16 @@ import { Field, reduxForm } from 'redux-form';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import SelectFormGroup from '../../../form-fields/SelectFormGroup';
-import DateInput from '../../../form-fields/DateInput';
-import ValidatedInput from '../../../form-fields/ValidatedInputFormGroup';
-import FormTitle from '../../../ui-elements/FormTitle/FormTitle';
+import SelectFormGroup from '../../../../form-fields/SelectFormGroup';
+import DateInput from '../../../../form-fields/DateInput';
+import ValidatedInput from '../../../../form-fields/ValidatedInputFormGroup';
+import FormTitle from '../../../../ui-elements/FormTitle/FormTitle';
 import { validateForm } from '../forms.validation';
 import { valuesNames, valuesLabels, questionOptions1, questionOptions2, questionOptions3, questionOptions4, questionOptions5, marksForPromsRange, typesOfRecordsOptions } from '../forms.config';
 import { defaultFormValues } from './default-values.config';
-import { getDDMMMYYYY } from '../../../../utils/time-helpers.utils';
-import RecordsOfTable from '../../../form-fields/RecordsOfTable/RecordsOfTable';
+import { getDDMMMYYYY } from '../../../../../utils/time-helpers.utils';
+
+import RecordsOfTable from '../../../../form-fields/RecordsOfTable/RecordsOfTable';
 
 
 @reduxForm({

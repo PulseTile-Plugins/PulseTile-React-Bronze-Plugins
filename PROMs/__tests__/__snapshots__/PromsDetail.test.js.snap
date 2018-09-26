@@ -13,6 +13,7 @@ exports[`Component <PromsDetail /> should renders correctly with different state
           "promPanel": false,
         }
       }
+      isEditButton={true}
       isOpen={false}
       isShowControlPanel={true}
       name="promPanel"
@@ -236,6 +237,7 @@ exports[`Component <PromsDetail /> should renders correctly with different state
         }
       }
       isBtnShowPanel={true}
+      isEditButton={true}
       isOpen={false}
       isShowControlPanel={true}
       name="promPanel"
@@ -294,6 +296,7 @@ exports[`Component <PromsDetail /> should renders with props correctly 1`] = `
           "promPanel": false,
         }
       }
+      isEditButton={true}
       isOpen={false}
       isShowControlPanel={true}
       name="promPanel"
@@ -545,6 +548,7 @@ exports[`Component <PromsDetail /> should renders with props correctly 2`] = `
           "promPanel": false,
         }
       }
+      isEditButton={true}
       isOpen={false}
       isShowControlPanel={true}
       name="promPanel"
