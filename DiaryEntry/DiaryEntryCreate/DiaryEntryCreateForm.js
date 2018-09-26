@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, change, formValueSelector } from 'redux-form'
 
-import ValidatedInput from '../../../form-fields/ValidatedInputFormGroup';
-import ValidatedTextareaFormGroup from '../../../form-fields/ValidatedTextareaFormGroup';
-import SelectFormGroup from '../../../form-fields/SelectFormGroup';
-import DateInput from '../../../form-fields/DateInput';
+import ValidatedInput from '../../../../form-fields/ValidatedInputFormGroup';
+import ValidatedTextareaFormGroup from '../../../../form-fields/ValidatedTextareaFormGroup';
+import SelectFormGroup from '../../../../form-fields/SelectFormGroup';
+import DateInput from '../../../../form-fields/DateInput';
 import { validateForm } from '../forms.validation';
 import { valuesNames, valuesLabels, noteTypeOptions, formSelectorNames } from '../forms.config';
 import { defaultFormValues } from './default-values.config';
-import TextareaWithButton from '../../../form-fields/TextareaWithButton';
+import TextareaWithButton from '../../../../form-fields/TextareaWithButton';
 
 @reduxForm({
   form: formSelectorNames.DIARY_ENTRIES_CREATE,

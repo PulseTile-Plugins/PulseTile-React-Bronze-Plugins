@@ -7,22 +7,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { lifecycle, compose } from 'recompose';
 
-import PluginListHeader from '../../plugin-page-component/PluginListHeader';
-import PluginCreate from '../../plugin-page-component/PluginCreate';
-import PluginMainPanel from '../../plugin-page-component/PluginMainPanel';
+import PluginListHeader from '../../../plugin-page-component/PluginListHeader';
+import PluginCreate from '../../../plugin-page-component/PluginCreate';
+import PluginMainPanel from '../../../plugin-page-component/PluginMainPanel';
 import GenericPluginCreateForm from './GenericPluginCreate/GenericPluginCreateForm';
 import { columnsConfig, defaultColumnsSelected } from './table-columns.config'
 import { fetchPatientGenericPluginRequest } from './ducks/fetch-patient-generic-plugin.duck';
 import { fetchPatientGenericPluginDetailRequest } from './ducks/fetch-patient-generic-plugin-detail.duck';
 import { fetchPatientGenericPluginDetailEditRequest } from './ducks/fetch-patient-generic-plugin-detail-edit.duck';
 import { fetchPatientGenericPluginCreateRequest } from './ducks/fetch-patient-generic-plugin-create.duck';
-import { fetchPatientGenericPluginOnMount, fetchPatientGenericPluginDetailOnMount } from '../../../utils/HOCs/fetch-patients.utils';
+import { fetchPatientGenericPluginOnMount, fetchPatientGenericPluginDetailOnMount } from '../../config/synopsisRequests';
 import { patientGenericPluginSelector, patientGenericPluginDetailSelector, genericPluginDetailFormSelector, genericPluginCreateFormStateSelector } from './selectors';
-import { clientUrls } from '../../../config/client-urls.constants';
+import { themeClientUrls } from '../../config/clientUrls';
 import GenericPluginDetail from './GenericPluginDetail/GenericPluginDetail';
 import { valuesNames } from './forms.config';
-import { getDDMMMYYYY } from '../../../utils/time-helpers.utils';
-import { checkIsValidateForm, operationsOnCollection } from '../../../utils/plugin-helpers.utils';
+import { getDDMMMYYYY } from '../../../../utils/time-helpers.utils';
+import { checkIsValidateForm, operationsOnCollection } from '../../../../utils/plugin-helpers.utils';
 
 const GENERIC_PLUGIN_MAIN = 'genericPluginsMain';
 const GENERIC_PLUGIN_DETAIL = 'genericPluginsDetail';
@@ -71,13 +71,13 @@ export default class GenericPlugin extends PureComponent {
     const userId = this.context.router.route.match.params.userId;
 
     //TODO should be implemented common function, and the state stored in the store Redux
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}/${sourceId}` && sourceId !== undefined) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}/${sourceId}` && sourceId !== undefined) {
       this.setState({ isSecondPanel: true, isDetailPanelVisible: true, isBtnExpandVisible: true, isBtnCreateVisible: true, isCreatePanelVisible: false })
     }
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}/create`) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}/create`) {
       this.setState({ isSecondPanel: true, isBtnExpandVisible: true, isBtnCreateVisible: false, isCreatePanelVisible: true, openedPanel: GENERIC_PLUGIN_CREATE, isDetailPanelVisible: false })
     }
-    if (this.context.router.history.location.pathname === `${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}`) {
+    if (this.context.router.history.location.pathname === `${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}`) {
       this.setState({ isSecondPanel: false, isBtnExpandVisible: false, isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: GENERIC_PLUGIN_PANEL, isDetailPanelVisible: false, expandedPanel: 'all' })
     }
 
@@ -109,7 +109,7 @@ export default class GenericPlugin extends PureComponent {
     const { actions, userId } = this.props;
     this.setState({ isSecondPanel: true, isDetailPanelVisible: true, isBtnExpandVisible: true, isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: GENERIC_PLUGIN_PANEL, editedPanel: {}, expandedPanel: 'all', isLoading: true });
     actions.fetchPatientGenericPluginDetailRequest({ userId, sourceId });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}/${sourceId}`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}/${sourceId}`);
   };
 
   handleSetOffset = offset => this.setState({ offset });
@@ -117,7 +117,7 @@ export default class GenericPlugin extends PureComponent {
   handleCreate = () => {
     const { userId } = this.props;
     this.setState({ isBtnCreateVisible: false, isCreatePanelVisible: true, openedPanel: GENERIC_PLUGIN_CREATE, isSecondPanel: true, isDetailPanelVisible: false, isBtnExpandVisible: true, expandedPanel: 'all', isSubmit: false, isLoading: true });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}/create`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}/create`);
   };
 
   handleEdit = (name) => {
@@ -161,14 +161,14 @@ export default class GenericPlugin extends PureComponent {
   handleCreateCancel = () => {
     const { userId } = this.props;
     this.setState({ isBtnCreateVisible: true, isCreatePanelVisible: false, openedPanel: GENERIC_PLUGIN_PANEL, isSecondPanel: false, isBtnExpandVisible: false, expandedPanel: 'all', isSubmit: false, isLoading: true });
-    this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}`);
+    this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}`);
   };
 
   handleSaveSettingsCreateForm = (formValues) => {
     const { actions, userId, genericPluginCreateFormState } = this.props;
     if (checkIsValidateForm(genericPluginCreateFormState)) {
       actions.fetchPatientGenericPluginCreateRequest(this.formValuesToString(formValues, 'create'));
-      this.context.router.history.push(`${clientUrls.PATIENTS}/${userId}/${clientUrls.GENERIC_PLUGIN}`);
+      this.context.router.history.push(`${themeClientUrls.PATIENTS}/${userId}/${themeClientUrls.GENERIC_PLUGIN}`);
       this.hideCreateForm();
       this.setState({ isLoading: true });
     } else {

@@ -2,9 +2,9 @@ import _ from 'lodash/fp';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
+import { themeClientUrls } from '../../../config/clientUrls';
 import { fetchPatientPromsDetailRequest } from './fetch-patient-proms-detail.duck';
-import { hasTokenInResponse } from '../../../../utils/plugin-helpers.utils';
+import { hasTokenInResponse } from '../../../../../utils/plugin-helpers.utils';
 
 export const FETCH_PATIENT_PROMS_REQUEST = 'FETCH_PATIENT_PROMS_REQUEST';
 export const FETCH_PATIENT_PROMS_SUCCESS = 'FETCH_PATIENT_PROMS_SUCCESS';
@@ -19,7 +19,7 @@ export const fetchPatientPromsUpdateRequest = createAction(FETCH_PATIENT_PROMS_U
 export const fetchPatientPromsEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_PROMS_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/proms`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.PROMS}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .map((response) => {
@@ -35,7 +35,7 @@ export const fetchPatientPromsEpic = (action$, store) =>
 export const fetchPatientPromsUpdateEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_PROMS_UPDATE_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/proms`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.PROMS}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .flatMap((response) => {

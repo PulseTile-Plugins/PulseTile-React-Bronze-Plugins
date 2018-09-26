@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 
-import asyncComponent from '../../../components/containers/AsyncComponent/AsyncComponent';
-import { clientUrls } from '../../../config/client-urls.constants';
+import asyncComponent from '../../../../components/containers/AsyncComponent/AsyncComponent';
+import { themeClientUrls } from '../../config/clientUrls';
 
 import { fetchPatientDiaryEntryEpic } from './ducks/fetch-patient-diary-entry.duck';
 import { fetchPatientDiaryEntryUpdateEpic } from './ducks/fetch-patient-diary-entry.duck';
@@ -27,9 +27,9 @@ const reducers = {
 const sidebarConfig = { key: 'diaryEntry', pathToTransition: '/diaryEntry', name: 'Diary Entry', isVisible: false };
 
 const routers = [
-  { key: 'diaryEntry', component: DiaryEntry, path: `${clientUrls.PATIENTS}/:userId/${clientUrls.DIARY_ENTRY}` },
-  { key: 'diaryEntryCreate', component: DiaryEntry, path: `${clientUrls.PATIENTS}/:userId/${clientUrls.DIARY_ENTRY}/create` },
-  { key: 'diaryEntryDetail', component: DiaryEntry, path: `${clientUrls.PATIENTS}/:userId/${clientUrls.DIARY_ENTRY}/:sourceId` },
+  { key: 'diaryEntry', component: DiaryEntry, path: `${themeClientUrls.PATIENTS}/:userId/${themeClientUrls.DIARY_ENTRY}` },
+  { key: 'diaryEntryCreate', component: DiaryEntry, path: `${themeClientUrls.PATIENTS}/:userId/${themeClientUrls.DIARY_ENTRY}/create` },
+  { key: 'diaryEntryDetail', component: DiaryEntry, path: `${themeClientUrls.PATIENTS}/:userId/${themeClientUrls.DIARY_ENTRY}/:sourceId` },
 ];
 
 export default {

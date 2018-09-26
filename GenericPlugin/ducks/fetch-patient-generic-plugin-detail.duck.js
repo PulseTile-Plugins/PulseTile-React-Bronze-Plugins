@@ -2,7 +2,7 @@ import _ from 'lodash/fp';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { createAction } from 'redux-actions';
 
-import { usersUrls } from '../../../../config/server-urls.constants'
+import { themeClientUrls } from '../../../config/clientUrls';
 
 export const FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_REQUEST = 'FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_REQUEST';
 export const FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_SUCCESS = 'FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_SUCCESS';
@@ -15,7 +15,7 @@ export const fetchPatientGenericPluginDetailFailure = createAction(FETCH_PATIENT
 export const fetchPatientGenericPluginDetailEpic = (action$, store) =>
   action$.ofType(FETCH_PATIENT_GENERIC_PLUGIN_DETAIL_REQUEST)
     .mergeMap(({ payload }) =>
-      ajax.getJSON(`${usersUrls.PATIENTS_URL}/${payload.userId}/generic-plugin/${payload.sourceId}`, {
+      ajax.getJSON(`/api/patients/${payload.userId}/${themeClientUrls.GENERIC_PLUGIN}/${payload.sourceId}`, {
         headers: { Cookie: store.getState().credentials.cookie },
       })
         .map(response => fetchPatientGenericPluginDetailSuccess({

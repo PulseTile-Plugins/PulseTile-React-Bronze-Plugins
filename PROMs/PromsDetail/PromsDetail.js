@@ -3,11 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash/fp';
 
-import PluginDetailPanel from '../../../plugin-page-component/PluginDetailPanel';
+import PluginDetailPanel from '../../../../plugin-page-component/PluginDetailPanel';
 import PromsDetailForm from './PromsDetailForm';
-import FormTitle from '../../../ui-elements/FormTitle/FormTitle';
-import RecordsOfTableView from '../../../form-fields/RecordsOfTable/RecordsOfTableView';
-import { getDDMMMYYYY } from '../../../../utils/time-helpers.utils';
+import FormTitle from '../../../../ui-elements/FormTitle/FormTitle';
+
+import RecordsOfTableView from '../../../../form-fields/RecordsOfTable/RecordsOfTableView';
+
+import { getDDMMMYYYY } from '../../../../../utils/time-helpers.utils';
 import { valuesNames, valuesLabels, qestionOptions } from '../forms.config';
 import { patientProceduresDetailSelector } from '../../Procedures/selectors';
 import { fetchPatientProceduresDetailRequest } from '../../Procedures/ducks/fetch-patient-procedures-detail.duck';

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash/fp';
 
-import { operationsOnCollection } from '../../../utils/plugin-helpers.utils';
+import { operationsOnCollection } from '../../../../utils/plugin-helpers.utils';
 import { valuesNames } from './forms.config';
 
 const genericPluginsDetailFormSelector = _.getOr({}, 'form.genericPluginsDetailFormSelector');
